@@ -32,9 +32,7 @@ void setup() {
 void loop() {
   bool irSensor1 = digitalRead(ir1);
   bool irSensor2 = digitalRead(ir2);
-  Serial.println(irSensor1);
-  Serial.println(irSensor2);
-  if (irSensor1 == 0 || irSensor2 == 0) {
+  if (irSensor1 == 1 || irSensor2 == 1) {
     reverse();
     delay(reverseTimer);
     left();
@@ -64,14 +62,6 @@ void left() {
   digitalWrite(in3, HIGH);
   digitalWrite(in4, LOW);
 }
-
-void right() {
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
-  digitalWrite(in3, LOW);
-  digitalWrite(in4, HIGH);
-}
-
 void pause() {
   digitalWrite(in1, LOW);
   digitalWrite(in2, LOW);
