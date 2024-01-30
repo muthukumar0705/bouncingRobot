@@ -1,0 +1,80 @@
+#include <math.h>
+// Arduino pins
+#define ir1 2
+#define ir2 3
+#define enA 4
+#define in1 5
+#define in2 6
+#define enB 7
+#define in3 8
+#define in4 9
+
+
+#define fastA 255
+#define fastB 255
+#define reverseTimer 1000
+#define turnTimer 500
+
+void setup() {
+  Serial.begin(9600); // // Serial Communication is starting with 9600 of baudrate speed
+  pinMode(enA, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(enB, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(ir1,INPUT);
+  pinMode(ir2,INPUT);
+  analogWrite(enA, fastA);
+  analogWrite(enB, fastA);
+}
+
+void loop() {
+  bool irSensor1 = digitalRead(ir1);
+  bool irSensor2 = digitalRead(ir2);
+  Serial.println(irSensor1);
+  Serial.println(irSensor2);
+  if (irSensor1 == 0 || irSensor2 == 0) {
+    reverse();
+    delay(reverseTimer);
+    left();
+    delay(turnTimer);
+  } 
+  forward();
+  delay(10);
+}
+
+void forward() {
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+}
+
+void reverse() {
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+}
+
+void left() {
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+}
+
+void right() {
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+}
+
+void pause() {
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW);
+}
